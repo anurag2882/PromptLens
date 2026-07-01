@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photo to Prompt — Prompt & Create</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner" id="navInner">
+    <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-wand-magic-sparkles"></i></span>Prompt & Create</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#how">How it Works</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+    </ul>
+    <a href="index.html" class="btn btn-primary">Get Started</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+
+<header class="tool-header">
+  <div class="crumb"><a href="index.html">Home</a><span>›</span><span>Generate Prompt</span></div>
+  <span class="eyebrow"><i class="fa-solid fa-sparkles spark"></i> AI‑Powered Prompt Generation</span>
+  <h1>Upload Photo <span class="arrow">→</span> Get Prompt</h1>
+  <p>Upload any image and our AI will analyze it to generate a detailed prompt.</p>
+</header>
+
+<main class="tool-body">
+  <div class="tool-grid">
+
+    <!-- LEFT: Upload + options -->
+    <section class="panel">
+      <div class="panel-head">
+        <span class="num">1</span><h3>Upload Your Image</h3>
+      </div>
+
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload image">
+        <input type="file" id="fileInput" accept="image/png, image/jpeg, image/webp">
+        <div id="dzPrompt">
+          <div class="dz-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+          <p class="dz-main">Drag & Drop your image here</p>
+          <p class="dz-or">or</p>
+          <button type="button" class="btn btn-primary btn-sm" id="chooseFileBtn">Choose File</button>
+          <p class="dz-hint">JPG, PNG, WEBP up to 10MB</p>
+        </div>
+      </div>
+
+      <div class="preview-wrap" id="previewWrap" style="display:none;">
+        <img id="previewImg" src="" alt="Uploaded preview">
+        <button class="preview-remove" id="removeImgBtn" aria-label="Remove image"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="panel-head" style="margin-top:26px;">
+        <span class="num">2</span><h3>Options</h3>
+      </div>
+      <div class="check-grid">
+        <label class="check-row"><input type="checkbox" checked data-fmt="detailed"> Detailed Prompt</label>
+        <label class="check-row"><input type="checkbox" checked data-fmt="midjourney"> Midjourney Format</label>
+        <label class="check-row"><input type="checkbox" data-fmt="short"> Short Prompt</label>
+        <label class="check-row"><input type="checkbox" checked data-fmt="sd"> Stable Diffusion Format</label>
+      </div>
+
+      <p class="opt-label">Select Style (Optional)</p>
+      <select class="select-field" id="styleSelect">
+        <option>Realistic</option>
+        <option>Cinematic</option>
+        <option>Anime</option>
+        <option>Fantasy / Painterly</option>
+        <option>Cyberpunk</option>
+        <option>Minimalist</option>
+      </select>
+
+      <button class="btn btn-primary btn-full" id="generateBtn" style="margin-top:24px; padding:14px;" disabled>
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Prompt
+      </button>
+    </section>
+
+    <!-- RIGHT: Result -->
+    <section class="panel">
+      <div class="panel-head">
+        <span class="num">3</span><h3>Generated Prompt</h3>
+        <span class="status-pill" id="statusPill">Waiting</span>
+      </div>
+
+      <div id="resultArea">
+        <div class="empty-state" id="emptyState">
+          <i class="fa-regular fa-image ic"></i>
+          <p>Upload a photo and click <strong>Generate Prompt</strong> to see your result here.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-wand-magic-sparkles"></i></span>Prompt & Create</a>
+      <p>AI image tools that help you create, inspire and bring ideas to life.</p>
+    </div>
+    <div>
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html" class="footlink">Home</a></li>
+        <li><a href="index.html#features" class="footlink">Features</a></li>
+        <li><a href="index.html#how" class="footlink">How it Works</a></li>
+        <li><a href="history.html" class="footlink">History</a></li>
+        <li><a href="pricing.html" class="footlink">Pricing</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="photo-to-prompt.html" class="footlink">Photo to Prompt</a></li>
+        <li><a href="prompt-to-image.html" class="footlink">Prompt to Image</a></li>
+        <li><a href="#" class="footlink" data-soon="AI Generator">AI Generator</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <ul>
+        <li><a href="index.html#about" class="footlink">About Us</a></li>
+        <li><a href="#" class="footlink">Contact Us</a></li>
+        <li><a href="#" class="footlink" data-soon="Privacy Policy">Privacy Policy</a></li>
+        <li><a href="#" class="footlink" data-soon="Terms of Use">Terms of Use</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Stay Connected</h5>
+      <p style="font-size:13.5px; color:#a79bd1; margin-bottom:12px;">Get updates and new features in your inbox.</p>
+      <form class="subscribe-row" id="subscribeForm">
+        <input type="email" placeholder="Enter your email" required>
+        <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2024 Prompt & Create. All rights reserved.</div>
+</footer>
+
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check ic"></i><span id="toastMsg">Done</span></div>
+
+<script src="script.js"></script>
+</body>
+</html>

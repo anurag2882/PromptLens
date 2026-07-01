@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt to Image — Prompt & Create</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner" id="navInner">
+    <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-wand-magic-sparkles"></i></span>Prompt & Create</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#how">How it Works</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+    </ul>
+    <a href="index.html" class="btn btn-primary">Get Started</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+
+<header class="tool-header">
+  <div class="crumb"><a href="index.html">Home</a><span>›</span><span>Prompt to Image</span></div>
+  <span class="eyebrow"><i class="fa-solid fa-sparkles spark"></i> AI‑Powered Image Generation</span>
+  <h1>Upload Photo + Prompt <span class="arrow">→</span> <span class="text-grad">Generate Image</span></h1>
+  <p>Upload a photo, add a prompt, and let AI create a brand new image for you.</p>
+</header>
+
+<main class="tool-body">
+  <div class="tool-grid">
+
+    <!-- LEFT -->
+    <section class="panel">
+      <div class="panel-head"><span class="num">1</span><h3>Upload Your Photo</h3></div>
+
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload image">
+        <input type="file" id="fileInput" accept="image/png, image/jpeg, image/webp">
+        <div id="dzPrompt">
+          <div class="dz-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+          <p class="dz-main">Drag & Drop your image here</p>
+          <p class="dz-or">or</p>
+          <button type="button" class="btn btn-primary btn-sm" id="chooseFileBtn">Choose File</button>
+          <p class="dz-hint">JPG, PNG, WEBP up to 10MB</p>
+        </div>
+      </div>
+
+      <div id="uploadedBlock" style="display:none;">
+        <p class="opt-label" style="margin-top:18px;">Uploaded Image</p>
+        <div class="preview-wrap" style="margin-top:0;">
+          <img id="previewImg" src="" alt="Uploaded preview">
+          <button class="preview-remove" id="removeImgBtn" aria-label="Remove image"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+
+      <div class="tip-box" style="margin-top:18px;"><span class="ic">💡</span><span>Tip: Uploading a photo is optional — leave it blank to generate purely from your text prompt, or upload one to guide the style.</span></div>
+      <div class="tip-box" style="margin-top:10px;"><span class="ic">📷</span><span>For better results when uploading, use high quality images.</span></div>
+    </section>
+
+    <!-- RIGHT -->
+    <section class="panel">
+      <div class="panel-head"><span class="num">2</span><h3>Describe Changes (Prompt)</h3>
+        <button class="btn btn-ghost btn-sm" id="examplesBtn"><i class="fa-regular fa-lightbulb"></i> Examples</button>
+      </div>
+      <textarea class="textarea-field" id="promptInput" maxlength="1000" placeholder="Describe what changes you want in the image…&#10;&#10;Example: Turn this into a cyberpunk style with neon lights, futuristic buildings in background, purple and blue color tone."></textarea>
+      <div class="char-count"><span id="charCount">0</span>/1000</div>
+
+      <div class="panel-head" style="margin-top:24px;"><span class="num">3</span><h3>Advanced Settings</h3></div>
+
+      <div class="field-row">
+        <div class="field-block">
+          <label>Aspect Ratio</label>
+          <div class="chip-row" id="ratioChips">
+            <button type="button" class="chip active" data-ratio="1:1">1:1</button>
+            <button type="button" class="chip" data-ratio="9:16">9:16</button>
+            <button type="button" class="chip" data-ratio="16:9">16:9</button>
+            <button type="button" class="chip" data-ratio="4:5">4:5</button>
+            <button type="button" class="chip" data-ratio="3:2">3:2</button>
+          </div>
+        </div>
+        <div class="field-block">
+          <label>Style</label>
+          <select class="select-field" id="styleSelect">
+            <option>Realistic</option>
+            <option>Cinematic</option>
+            <option>Anime</option>
+            <option>Fantasy / Painterly</option>
+            <option>Cyberpunk</option>
+          </select>
+        </div>
+        <div class="field-block">
+          <label>Quality</label>
+          <input type="range" min="1" max="3" value="3" id="qualityRange" style="width:100%; accent-color:#6d28d9;">
+          <div style="font-size:12.5px; font-weight:700; color:var(--ink-soft); text-align:right;" id="qualityLabel">High</div>
+        </div>
+      </div>
+
+      <p class="opt-label">Additional Settings</p>
+      <div class="toggle-list">
+        <div class="toggle-row">
+          <span class="toggle-label">Enhance Details <i class="fa-regular fa-circle-question info" title="Sharpen fine textures and detail"></i></span>
+          <label class="switch"><input type="checkbox" id="enhanceToggle" checked><span class="track"></span></label>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">Preserve Composition <i class="fa-regular fa-circle-question info" title="Keep the original layout and subject position"></i></span>
+          <label class="switch"><input type="checkbox" id="preserveToggle" checked><span class="track"></span></label>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">Remove Background <i class="fa-regular fa-circle-question info" title="Strip the background from the final image"></i></span>
+          <label class="switch"><input type="checkbox" id="removeBgToggle"><span class="track"></span></label>
+        </div>
+      </div>
+
+      <button class="btn btn-blue btn-full" id="generateBtn" style="margin-top:24px; padding:14px;" disabled>
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Generate New Image
+      </button>
+    </section>
+  </div>
+
+  <!-- RESULT -->
+  <section class="panel result-panel">
+    <div class="panel-head"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--violet);"></i><h3 style="margin-left:6px;">Generated Result</h3></div>
+    <div class="result-compare">
+      <div class="compare-col">
+        <span class="label"><i class="fa-regular fa-image"></i> Original Image</span>
+        <div class="compare-img-box" id="originalBox"><span style="color:#c3b6e8; font-size:13px;">No photo uploaded — generating from prompt only</span></div>
+      </div>
+      <div class="compare-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      <div class="compare-col">
+        <span class="label"><i class="fa-solid fa-bolt"></i> Generated Image</span>
+        <div class="compare-img-box placeholder" id="generatedBox">
+          <span class="ic"><i class="fa-regular fa-image"></i></span>
+          <span id="generatedHint">Your AI generated image will appear here<br><span style="font-size:11.5px;">It usually takes 10–30 seconds.</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="result-actions" id="resultActions" style="display:none;">
+      <button class="btn btn-ghost" id="downloadImgBtn"><i class="fa-solid fa-download"></i> Download Image</button>
+      <button class="btn btn-ghost" id="regenImgBtn"><i class="fa-solid fa-rotate"></i> Regenerate</button>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-wand-magic-sparkles"></i></span>Prompt & Create</a>
+      <p>AI image tools that help you create, inspire and bring ideas to life.</p>
+    </div>
+    <div>
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html" class="footlink">Home</a></li>
+        <li><a href="index.html#features" class="footlink">Features</a></li>
+        <li><a href="index.html#how" class="footlink">How it Works</a></li>
+        <li><a href="history.html" class="footlink">History</a></li>
+        <li><a href="pricing.html" class="footlink">Pricing</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="photo-to-prompt.html" class="footlink">Photo to Prompt</a></li>
+        <li><a href="prompt-to-image.html" class="footlink">Prompt to Image</a></li>
+        <li><a href="#" class="footlink" data-soon="AI Generator">AI Generator</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <ul>
+        <li><a href="index.html#about" class="footlink">About Us</a></li>
+        <li><a href="#" class="footlink" id="contactUsLink">Contact Us</a></li>
+        <li><a href="#" class="footlink" data-soon="Privacy Policy">Privacy Policy</a></li>
+        <li><a href="#" class="footlink" data-soon="Terms of Use">Terms of Use</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Stay Connected</h5>
+      <p style="font-size:13.5px; color:#a79bd1; margin-bottom:12px;">Get updates and new features in your inbox.</p>
+      <form class="subscribe-row" id="subscribeForm">
+        <input type="email" placeholder="Enter your email" required>
+        <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2024 Prompt & Create. All rights reserved.</div>
+</footer>
+
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check ic"></i><span id="toastMsg">Done</span></div>
+
+<script src="script.js"></script>
+</body>
+</html>
